@@ -15,7 +15,6 @@ test: build
 	    -v $$(pwd)/bin/linux:/go/bin                                     			\
 	    -v $$(pwd)/.go/std/linux:/usr/local/go/pkg/linux_amd64_static  				\
 	    -e CGO_ENABLED=0															\
-	    -e GOOS=$$(uname -s |  tr "[:upper:]" "[:lower:]")							\
 	    -w /go/src/$(PKG)                                                  			\
 	    $(BUILD_IMAGE)                                                     			\
         go test -v -installsuffix static -ldflags '$(LDFLAGS)' $(SRC_AND_UNDER)
