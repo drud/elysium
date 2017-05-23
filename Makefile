@@ -3,10 +3,10 @@
 ##### These variables need to be adjusted in most repositories #####
 
 # This repo's root import path (under GOPATH).
-PKG := github.com/drud/elysium/pkg/api
+PKG := github.com/drud/elysium
 
 # Docker repo for a push
-# DOCKER_REPO ?= drud/docker_repo_name
+#DOCKER_REPO ?= drud/docker_repo_name
 
 # Upstream repo used in the Dockerfile
 # UPSTREAM_REPO ?= full/upstream-docker-repo
@@ -47,7 +47,3 @@ include build-tools/makefile_components/base_build_go.mak
 #include build-tools/makefile_components/base_push.mak
 include build-tools/makefile_components/base_test_go.mak
 #include build-tools/makefile_components/base_test_python.mak
-
-
-# Additional targets can be added here
-# Also, existing targets can be overridden by copying and customizing them.
