@@ -33,7 +33,7 @@ func setup() {
 		// If we can't load a session, try to auth directly.
 		err = session.Auth()
 		if err != nil {
-			log.Fatalf("Could not authentication: %v", err)
+			log.Fatalf("Could not authenticate: %v", err)
 		}
 
 		session.Write(sessionFilePath)
