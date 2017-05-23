@@ -1,13 +1,11 @@
 package elysium
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
 	"testing"
 
-	"github.com/aws/aws-sdk-go/aws/awsutil"
 	"github.com/mitchellh/go-homedir"
 	"github.com/stretchr/testify/assert"
 )
@@ -21,7 +19,7 @@ func TestMain(m *testing.M) {
 }
 
 func setup() {
-	session = NewAuthSession(os.Getenv("DRUD_TERMINUS_TOKEN"), "beeradb@gmail.com")
+	session = NewAuthSession(os.Getenv("DRUD_TERMINUS_TOKEN"))
 	home, err := homedir.Dir()
 	if err != nil {
 		log.Fatal("could not determine home directory")

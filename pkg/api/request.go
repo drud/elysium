@@ -10,6 +10,7 @@ import (
 	"strings"
 )
 
+// APIHost in the Hostname + basepath for the pantheon API endpoint.
 const APIHost = "https://terminus.pantheon.io:443/api"
 
 // RequestEntity provides an interface for making requests to the Pantheon API and marshaling/unmarshaling JSON data. Any object which

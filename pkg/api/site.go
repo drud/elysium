@@ -41,14 +41,14 @@ type Site struct {
 				InvitesSent                 int64       `json:"invites_sent"`
 				InvitesToSite               int64       `json:"invites_to_site"`
 				InvitesToUser               int64       `json:"invites_to_user"`
-				Last_org_spinup             string      `json:"last-org-spinup"`
+				LastOrgSpinup               string      `json:"last-org-spinup"`
 				Lastname                    string      `json:"lastname"`
 				Maxdevsites                 int64       `json:"maxdevsites"`
 				MinimizeJitDocs             bool        `json:"minimize_jit_docs"`
 				Modified                    int64       `json:"modified"`
 				Organization                string      `json:"organization"`
 				Seens                       struct {
-					New_site_support_interface bool `json:"new-site-support-interface"`
+					NewSiteSupportInterface bool `json:"new-site-support-interface"`
 				} `json:"seens"`
 				TrackingFirstCodePush       int64 `json:"tracking_first_code_push"`
 				TrackingFirstSiteCreate     int64 `json:"tracking_first_site_create"`
@@ -104,14 +104,14 @@ type Site struct {
 				InvitesSent                 int64       `json:"invites_sent"`
 				InvitesToSite               int64       `json:"invites_to_site"`
 				InvitesToUser               int64       `json:"invites_to_user"`
-				Last_org_spinup             string      `json:"last-org-spinup"`
+				LastOrgSpinup               string      `json:"last-org-spinup"`
 				Lastname                    string      `json:"lastname"`
 				Maxdevsites                 int64       `json:"maxdevsites"`
 				MinimizeJitDocs             bool        `json:"minimize_jit_docs"`
 				Modified                    int64       `json:"modified"`
 				Organization                string      `json:"organization"`
 				Seens                       struct {
-					New_site_support_interface bool `json:"new-site-support-interface"`
+					NewSiteSupportInterface bool `json:"new-site-support-interface"`
 				} `json:"seens"`
 				TrackingFirstCodePush       int64 `json:"tracking_first_code_push"`
 				TrackingFirstSiteCreate     int64 `json:"tracking_first_site_create"`

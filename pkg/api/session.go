@@ -14,7 +14,7 @@ type AuthSession struct {
 	Client  string `json:"client"`
 	Expires int    `json:"expires_at"`
 	Session string `json:"session,omitempty"`
-	UserId  string `json:"user_id,omitempty"`
+	UserID  string `json:"user_id,omitempty"`
 }
 
 // NewAuthSession creates a new authentication session using a given token. It is the preferred method for creating a new AuthSession.
@@ -65,7 +65,7 @@ func (a *AuthSession) Path(method string) string {
 // JSON prepares the AuthSession struct for an HTTP request by stripping out fields which should not be sent, and returning the JSON representation of the struct as byte array.
 func (a AuthSession) JSON() ([]byte, error) {
 	a.Email = ""
-	a.UserId = ""
+	a.UserID = ""
 	a.Session = ""
 	a.Expires = 0
 	return json.Marshal(a)
@@ -83,7 +83,7 @@ func (a *AuthSession) GetUser() (string, error) {
 		return "", err
 	}
 
-	return a.UserId, nil
+	return a.UserID, nil
 }
 
 // Write converts the current AuthSession to JSON and writes persists result to the specified location.
