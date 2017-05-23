@@ -11,6 +11,3 @@
 /.dockerfile
 /VERSION.txt
 /.docker_image
-
-# Ignore vendored packages
-/vendor/*/
