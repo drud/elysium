@@ -1,11 +1,13 @@
 package elysium
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
 	"testing"
 
+	"github.com/aws/aws-sdk-go/aws/awsutil"
 	"github.com/mitchellh/go-homedir"
 	"github.com/stretchr/testify/assert"
 )
@@ -50,4 +52,27 @@ func TestAuthSession(t *testing.T) {
 	SiteList := &SiteList{}
 	err := req.Do("GET", SiteList)
 	assert.NoError(err)
+	assert.NotEmpty(SiteList.Sites)
+
+	site := SiteList.Sites[0]
+	environmentList := NewEnvironmentList(site.ID)
+	err = req.Do("GET", environmentList)
+	assert.NoError(err)
+	assert.NotEmpty(environmentList)
+	env := environmentList.Environments["live"]
+	_ = env
+	fmt.Println(awsutil.Prettify(environmentList))
+
+	bl := NewBackupList(site.ID, env.Name)
+	err = req.Do("GET", bl)
+	assert.NoError(err)
+
+	if len(bl.Backups) > 0 {
+		for _, backup := range bl.Backups {
+			if backup.ArchiveType == "files" {
+				err = req.Do("POST", &backup)
+				assert.NoError(err)
+			}
+		}
+	}
 }
