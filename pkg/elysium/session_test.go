@@ -2,7 +2,6 @@ package elysium
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -26,8 +25,7 @@ var (
 
 func TestMain(m *testing.M) {
 	setup()
-	os.Exit(1)
-	//os.Exit(m.Run())
+	os.Exit(m.Run())
 }
 
 func testMethod(t *testing.T, r *http.Request, want string) {
@@ -39,22 +37,31 @@ func testMethod(t *testing.T, r *http.Request, want string) {
 func setup() {
 	mux = http.NewServeMux()
 	server = httptest.NewServer(mux)
-	session = NewAuthSession("super-secret-terminus-token")
+	session = NewAuthSession(os.Getenv("DRUD_TERMINUS_TOKEN"))
 	host, _ := url.Parse(server.URL)
 	APIHost = host.String()
-	mux.HandleFunc("/"+session.Path("POST"), func(w http.ResponseWriter, r *http.Request) {
-		expires := time.Now().UTC().Unix() + 100000
-		fmt.Fprintf(w, `{"machine_token":"super-secret-terminus-token","email":"testuser@drud.com","client":"terminus","expires_at": %d,"session":"some-testsession","user_id":"some-testuser"}`, expires)
-	})
-	err := session.Auth()
-	if err != nil {
-		log.Fatalf("Could not auth: %v", err)
-	}
+
 }
 
-func TestAuthSession(t *testing.T) {
+func TestAuth(t *testing.T) {
 	assert := assert.New(t)
+	expires := time.Now().UTC().Unix() + 100000
+	mux.HandleFunc("/"+session.Path("POST"), func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, `{"machine_token":"super-secret-terminus-token","email":"testuser@drud.com","client":"terminus","expires_at": %d,"session":"some-testsession","user_id":"some-testuser"}`, expires)
+	})
 
+	err := session.Auth()
+	assert.NoError(err)
+	assert.Equal(session.Token, "super-secret-terminus-token")
+	assert.Equal(session.Expires, expires)
+	assert.Equal(session.Session, "some-testsession")
+	assert.Equal(session.UserID, "some-testuser")
+}
+
+/**
+func TestNeedsToBeBrokenOut(t *testing.T) {
+	assert := assert.New(t)
+	APIHost = "https://terminus.pantheon.io:443/api"
 	SiteList := &SiteList{}
 	err := session.Request("GET", SiteList)
 	assert.NoError(err)
@@ -79,3 +86,4 @@ func TestAuthSession(t *testing.T) {
 		}
 	}
 }
+**/
