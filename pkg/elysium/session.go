@@ -13,7 +13,7 @@ type AuthSession struct {
 	Token   string `json:"machine_token"`
 	Email   string `json:"email,omitempty"`
 	Client  string `json:"client"`
-	Expires int    `json:"expires_at"`
+	Expires int64  `json:"expires_at"`
 	Session string `json:"session,omitempty"`
 	UserID  string `json:"user_id,omitempty"`
 }
@@ -57,7 +57,7 @@ func (a *AuthSession) Request(requestType string, entity RequestEntity) error {
 func (a *AuthSession) Auth() error {
 	now := time.Now().UTC().Unix()
 	// Determine if an expiration has happened.
-	if int64(a.Expires) <= now {
+	if a.Expires <= now {
 
 		// If so, re-authenticate.
 		json, err := a.JSON()

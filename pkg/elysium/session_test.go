@@ -46,7 +46,7 @@ func setup() {
 func TestAuth(t *testing.T) {
 	assert := assert.New(t)
 	expires := time.Now().UTC().Unix() + 100000
-	mux.HandleFunc("/"+session.Path("POST"), func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc(session.Path("POST"), func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, `{"machine_token":"super-secret-terminus-token","email":"testuser@drud.com","client":"terminus","expires_at": %d,"session":"some-testsession","user_id":"some-testuser"}`, expires)
 	})
 
