@@ -8,7 +8,8 @@ stages:
       GOPATH: /home/circleci/go
 
     steps:
-     - run: mkdir -p ~/go/lib && mkdir ~/go/pkg && mkdir -p ~/go/src/github.com/drud/elysium
+      - run: mkdir -p ~/go/lib && mkdir ~/go/pkg && mkdir -p ~/go/src/github.com/drud/elysium
+      - checkout
       - run: make test
       - run: make -s gofmt golint
 
