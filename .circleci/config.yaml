@@ -1,0 +1,13 @@
+version: 2
+stages:
+  build:
+    machine: true
+    working_directory: /home/circleci/go/src/github.com/drud/elysium
+
+    environment:
+      GOPATH: /home/circleci/go
+
+    steps:
+      - run: make test
+      - run: make -s gofmt golint
+
