@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+// Backup represents a single backup in the pantheon system.
 type Backup struct {
 	ID              string `json:"-"`
 	ArchiveType     string `json:"-"`
@@ -28,6 +29,7 @@ type Backup struct {
 	TTL             int64  `json:"ttl"`
 }
 
+// BackupList represents a list of all backups taken for a given site and environment combination.
 type BackupList struct {
 	EnvironmentName string
 	SiteID          string

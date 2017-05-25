@@ -5,6 +5,7 @@ import (
 	"fmt"
 )
 
+// Environment contains meta-data about a specific environment
 type Environment struct {
 	Name               string `json:"-"`
 	DNSZone            string `json:"dns_zone"`
