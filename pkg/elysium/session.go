@@ -87,7 +87,7 @@ func (a *AuthSession) Headers() (map[string]string, error) {
 
 // Path returns the API endpoint for authenticating.
 func (a *AuthSession) Path(method string) string {
-	return "authorize/machine-token"
+	return "/authorize/machine-token"
 }
 
 // JSON prepares the AuthSession struct for an HTTP request by stripping out fields which should not be sent, and returning the JSON representation of the struct as byte array.

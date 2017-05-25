@@ -139,7 +139,7 @@ func (sl SiteList) Path(method string, auth AuthSession) string {
 		log.Fatalf("Could not determine user for request: %v", err)
 	}
 
-	return fmt.Sprintf("users/%s/memberships/sites", userid)
+	return fmt.Sprintf("/users/%s/memberships/sites", userid)
 }
 
 // JSON prepares the SiteList for HTTP transport.

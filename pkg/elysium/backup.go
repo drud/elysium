@@ -45,7 +45,7 @@ func NewBackupList(siteID string, environmentName string) *BackupList {
 
 // Path returns the API endpoint which can be used to get a BackupList for the current user.
 func (bl BackupList) Path(method string, auth AuthSession) string {
-	return fmt.Sprintf("sites/%s/environments/%s/backups/catalog", bl.SiteID, bl.EnvironmentName)
+	return fmt.Sprintf("/sites/%s/environments/%s/backups/catalog", bl.SiteID, bl.EnvironmentName)
 }
 
 // JSON prepares the BackupList for HTTP transport.
@@ -86,7 +86,7 @@ func (bl *BackupList) Unmarshal(data []byte) error {
 
 // Path returns the API endpoint which can be used to get a BackupList for the current user.
 func (b Backup) Path(method string, auth AuthSession) string {
-	return fmt.Sprintf("sites/%s/environments/%s/backups/catalog/%s/%s/s3token", b.SiteID, b.EnvironmentName, b.Folder, b.ArchiveType)
+	return fmt.Sprintf("/sites/%s/environments/%s/backups/catalog/%s/%s/s3token", b.SiteID, b.EnvironmentName, b.Folder, b.ArchiveType)
 }
 
 // JSON prepares the BackupList for HTTP transport.

@@ -39,7 +39,7 @@ func NewEnvironmentList(siteID string) *EnvironmentList {
 
 // Path returns the API endpoint which can be used to get a SiteList for the current user.
 func (el EnvironmentList) Path(method string, auth AuthSession) string {
-	return fmt.Sprintf("sites/%s/environments", el.SiteID)
+	return fmt.Sprintf("/sites/%s/environments", el.SiteID)
 }
 
 // JSON prepares the EnvironmentList for HTTP transport.
