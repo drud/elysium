@@ -3,6 +3,9 @@ package elysium
 import (
 	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
+	"os"
 	"strings"
 )
 
@@ -94,4 +97,33 @@ func (b Backup) JSON() ([]byte, error) {
 // Unmarshal is responsible for converting a HTTP response into a BackupList struct.
 func (b *Backup) Unmarshal(data []byte) error {
 	return json.Unmarshal(data, &b)
+}
+
+// Download will download the backup to the location specified by downloadLocation.
+func (b *Backup) Download(downloadLocation string) error {
+	if b.DownloadURL == "" {
+		return fmt.Errorf("download URL is unknown. Have you performed an HTTP GET on the backup entity?")
+	}
+
+	// Create the file
+	out, err := os.Create(downloadLocation)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+
+	// Get the data
+	resp, err := http.Get(b.DownloadURL)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// Writer the body to file
+	_, err = io.Copy(out, resp.Body)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
