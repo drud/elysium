@@ -11,7 +11,7 @@ import (
 )
 
 // APIHost in the Hostname + basepath for the pantheon API endpoint.
-const APIHost = "https://terminus.pantheon.io:443/api"
+var APIHost = "https://terminus.pantheon.io:443/api"
 
 // RequestEntity provides an interface for making requests to the Pantheon API and marshaling/unmarshaling JSON data. Any object which
 // wishes to use the Request type must implement this interface.
@@ -19,39 +19,6 @@ type RequestEntity interface {
 	Path(method string, auth AuthSession) string // Path returns the request path of the entity for a given HTTP method.
 	Unmarshal(data []byte) error                 // Unmarshal is responsible for converting the []byte response back into the struct.
 	JSON() ([]byte, error)                       // JSON() is responsible for preparing the struct for HTTP transport. It is responsible for removing any fields which should not be included in the request.
-}
-
-// Request performs one or more HTTP/HTTPS request(s). It requires an AuthSession and an optional map of headers to use.
-type Request struct {
-	Auth    *AuthSession
-	Headers map[string]string
-}
-
-// Do performs the HTTP request. You must provide it a request type and the entity the result should be stored in.
-func (r *Request) Do(requestType string, entity RequestEntity) error {
-	var json []byte
-	var err error
-
-	requestType = strings.ToUpper(requestType)
-	if requestType != "GET" {
-		json, err = entity.JSON()
-		if err != nil {
-			return err
-		}
-	}
-
-	headers, err := r.Auth.Headers()
-	if err != nil {
-		return err
-	}
-
-	bytes, err := httpRequest(requestType, entity.Path(requestType, *r.Auth), json, headers)
-
-	if err != nil {
-		return err
-	}
-
-	return entity.Unmarshal(bytes)
 }
 
 // setRequestHeaders sets default headers that should be used for all HTTP requests.
@@ -82,7 +49,6 @@ func httpRequest(requestType string, requestPath string, body []byte, headers ma
 			req.Header.Set(key, value)
 		}
 	}
-
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {

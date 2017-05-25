@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"strings"
 	"time"
 )
 
@@ -23,6 +24,33 @@ func NewAuthSession(token string) *AuthSession {
 		Token:  token,
 		Client: "terminus",
 	}
+}
+
+// Request performs the HTTP request. You must provide it a request type and the entity the result should be stored in.
+func (a *AuthSession) Request(requestType string, entity RequestEntity) error {
+	var json []byte
+	var err error
+
+	requestType = strings.ToUpper(requestType)
+	if requestType != "GET" {
+		json, err = entity.JSON()
+		if err != nil {
+			return err
+		}
+	}
+
+	headers, err := a.Headers()
+	if err != nil {
+		return err
+	}
+
+	bytes, err := httpRequest(requestType, entity.Path(requestType, *a), json, headers)
+
+	if err != nil {
+		return err
+	}
+
+	return entity.Unmarshal(bytes)
 }
 
 // Auth checks the expiration time of the current session (if there is one) and re-authenticates as necessary.
