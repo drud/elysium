@@ -132,6 +132,11 @@ type SiteList struct {
 	Sites []Site
 }
 
+// NewSiteList creates an SiteList. The user will be specified by which session you use to make the GET request. You are responsible for making the HTTP request.
+func NewSiteList() *SiteList {
+	return &SiteList{}
+}
+
 // Path returns the API endpoint which can be used to get a SiteList for the current user.
 func (sl SiteList) Path(method string, auth AuthSession) string {
 	userid, err := auth.GetUser()

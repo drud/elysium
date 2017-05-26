@@ -25,10 +25,12 @@ func TestSiteList(t *testing.T) {
 
 	session.Request("GET", sl)
 
-	// Ensure we got a valid response and were able to unmarshal it was expected.
+	// Ensure we got a valid response and were able to unmarshal it as expected.
 	assert.Equal(len(sl.Sites), 2)
 	assert.Equal(sl.Sites[0].Site.Framework, "wordpress")
 	assert.Equal(sl.Sites[1].Site.Framework, "drupal")
 	assert.Equal(sl.Sites[0].SiteID, "site-id1")
 	assert.Equal(sl.Sites[1].SiteID, "site-id2")
+	assert.Equal(sl.Sites[0].Site.Name, "sitename1")
+	assert.Equal(sl.Sites[0].Site.Name, "sitename2")
 }
