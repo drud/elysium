@@ -1,6 +1,7 @@
 package elysium
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -21,6 +22,9 @@ var (
 
 	// server is a test HTTP server used to provide mock API responses.
 	server *httptest.Server
+
+	// validToken is the Auth Token value that will be considered valid for HTTP requests. Using any other value to auth will be considered invalid.
+	validToken = "valid-token"
 )
 
 func TestMain(m *testing.M) {
@@ -37,22 +41,48 @@ func testMethod(t *testing.T, r *http.Request, want string) {
 func setup() {
 	mux = http.NewServeMux()
 	server = httptest.NewServer(mux)
-	session = NewAuthSession(os.Getenv("DRUD_TERMINUS_TOKEN"))
+	session = NewAuthSession(validToken)
 	host, _ := url.Parse(server.URL)
 	APIHost = host.String()
 
 }
 
+// TestAuth ensures authenticating with the pantheon API is working as expected.
 func TestAuth(t *testing.T) {
 	assert := assert.New(t)
+
 	expires := time.Now().UTC().Unix() + 100000
 	mux.HandleFunc(session.Path("POST"), func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, `{"machine_token":"super-secret-terminus-token","email":"testuser@drud.com","client":"terminus","expires_at": %d,"session":"some-testsession","user_id":"some-testuser"}`, expires)
+		testMethod(t, r, "POST")
+
+		decoder := json.NewDecoder(r.Body)
+		var a AuthSession
+		err := decoder.Decode(&a)
+		if err != nil {
+			panic(err)
+		}
+		defer r.Body.Close()
+
+		if a.Token == validToken {
+			fmt.Fprintf(w, `{"machine_token":"%s","email":"testuser@drud.com","client":"terminus","expires_at": %d,"session":"some-testsession","user_id":"some-testuser"}`, validToken, expires)
+			return
+		}
+
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 	})
 
-	err := session.Auth()
+	// Try to auth using an invalid auth token. Ensure an error is returned.
+	invalidAuth := NewAuthSession("some-invalid-token")
+	err := invalidAuth.Auth()
+	assert.Error(err)
+	assert.Contains(err.Error(), "Internal Server Error")
+	assert.Equal(invalidAuth.Expires, int64(0))
+	assert.Equal(invalidAuth.Session, "")
+
+	// Try to auth using a valid auth token. Ensure that expected values exist in the auth struct.
+	err = session.Auth()
 	assert.NoError(err)
-	assert.Equal(session.Token, "super-secret-terminus-token")
+	assert.Equal(session.Token, validToken)
 	assert.Equal(session.Expires, expires)
 	assert.Equal(session.Session, "some-testsession")
 	assert.Equal(session.UserID, "some-testuser")
