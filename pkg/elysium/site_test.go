@@ -32,5 +32,5 @@ func TestSiteList(t *testing.T) {
 	assert.Equal(sl.Sites[0].SiteID, "site-id1")
 	assert.Equal(sl.Sites[1].SiteID, "site-id2")
 	assert.Equal(sl.Sites[0].Site.Name, "sitename1")
-	assert.Equal(sl.Sites[0].Site.Name, "sitename2")
+	assert.Equal(sl.Sites[1].Site.Name, "sitename2")
 }
