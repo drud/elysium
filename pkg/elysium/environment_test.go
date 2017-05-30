@@ -33,13 +33,20 @@ func TestEnvironmentList(t *testing.T) {
 		assert.Contains(r.Header.Get("Authorization"), session.Session)
 
 		// Send JSON response back.
-		contents, err := ioutil.ReadFile("test/sites.json")
+		contents, err := ioutil.ReadFile("test/environments.json")
 		assert.NoError(err)
 		w.Write(contents)
 	})
 
-	session.Request("GET", el)
+	err := session.Request("GET", el)
+	assert.NoError(err)
 
 	// Ensure we got a valid response and were able to unmarshal it as expected.
-	assert.Equal(len(el.Environments), 2)
+	assert.Equal(len(el.Environments), 3)
+	environments := []string{"test", "live", "dev"}
+	for _, name := range environments {
+		env, ok := el.Environments[name]
+		assert.True(ok)
+		assert.Equal(env.Name, name)
+	}
 }
