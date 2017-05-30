@@ -24,7 +24,7 @@ var (
 	server *httptest.Server
 
 	// validToken is the Auth Token value that will be considered valid for HTTP requests. Using any other value to auth will be considered invalid.
-	validToken = "valid-token"
+	validToken = os.Getenv("DRUD_TERMINUS_TOKEN")
 )
 
 func TestMain(m *testing.M) {
