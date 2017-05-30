@@ -24,7 +24,8 @@ var (
 	server *httptest.Server
 
 	// validToken is the Auth Token value that will be considered valid for HTTP requests. Using any other value to auth will be considered invalid.
-	validToken = os.Getenv("DRUD_TERMINUS_TOKEN")
+	validToken   = os.Getenv("DRUD_TERMINUS_TOKEN")
+	tokenExpires = time.Now().UTC().Unix() + 100000
 )
 
 func TestMain(m *testing.M) {
@@ -45,16 +46,8 @@ func setup() {
 	host, _ := url.Parse(server.URL)
 	APIHost = host.String()
 
-}
-
-// TestAuth ensures authenticating with the pantheon API is working as expected.
-func TestAuth(t *testing.T) {
-	assert := assert.New(t)
-
-	expires := time.Now().UTC().Unix() + 100000
+	// Add handler for auth functions. We need to add this out of band as it can be called as a secondary effect of other requests (if auth has not happened yet).
 	mux.HandleFunc(session.Path("POST"), func(w http.ResponseWriter, r *http.Request) {
-		testMethod(t, r, "POST")
-
 		decoder := json.NewDecoder(r.Body)
 		var a AuthSession
 		err := decoder.Decode(&a)
@@ -64,12 +57,18 @@ func TestAuth(t *testing.T) {
 		defer r.Body.Close()
 
 		if a.Token == validToken {
-			fmt.Fprintf(w, `{"machine_token":"%s","email":"testuser@drud.com","client":"terminus","expires_at": %d,"session":"some-testsession","user_id":"some-testuser"}`, validToken, expires)
+			fmt.Fprintf(w, `{"machine_token":"%s","email":"testuser@drud.com","client":"terminus","expires_at": %d,"session":"some-testsession","user_id":"some-testuser"}`, validToken, tokenExpires)
 			return
 		}
 
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 	})
+
+}
+
+// TestAuth ensures authenticating with the pantheon API is working as expected.
+func TestAuth(t *testing.T) {
+	assert := assert.New(t)
 
 	// Try to auth using an invalid auth token. Ensure an error is returned.
 	invalidAuth := NewAuthSession("some-invalid-token")
@@ -83,7 +82,7 @@ func TestAuth(t *testing.T) {
 	err = session.Auth()
 	assert.NoError(err)
 	assert.Equal(session.Token, validToken)
-	assert.Equal(session.Expires, expires)
+	assert.Equal(session.Expires, tokenExpires)
 	assert.Equal(session.Session, "some-testsession")
 	assert.Equal(session.UserID, "some-testuser")
 }
