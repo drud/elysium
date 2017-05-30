@@ -2,7 +2,7 @@
   "test": {
     "environment_created": 1458580107,
     "dns_zone": "pantheonsite.io",
-    "randseed": "BCIKZO2AILRABFYKCHU6OGBDT42IPDQ5",
+    "randseed": "aaaaaaaaaaa",
     "target_ref": "refs/tags/pantheon_test_2",
     "maintenance": {
       "enabled": false
@@ -18,7 +18,7 @@
   "live": {
     "environment_created": 1458580111,
     "dns_zone": "pantheonsite.io",
-    "randseed": "EIM6MNQTBFD6H0G4S7UI05WIMRP27M68",
+    "randseed": "bbbbbbbbbbb",
     "target_ref": "refs/tags/pantheon_live_1",
     "maintenance": {
       "enabled": false
@@ -37,7 +37,7 @@
     "on_server_development": false,
     "environment_created": 1458580101,
     "dns_zone": "pantheonsite.io",
-    "randseed": "GI0XHPGAI4NNK7YC5UMHVP2SI053RT0Q",
+    "randseed": "ccccccccccc",
     "target_ref": "refs/heads/master",
     "maintenance": {
       "enabled": false

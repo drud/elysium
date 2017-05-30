@@ -20,7 +20,7 @@ func TestInvalidEnvironmentList(t *testing.T) {
 	})
 
 	err := session.Request("GET", el)
-
+	assert.Error(err)
 }
 
 // TestEnvironmentList ensures EnvironmentLists can be retrieved as expected.
