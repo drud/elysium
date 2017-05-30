@@ -52,3 +52,47 @@ if err != nil {
     log.Fatal(err)
 }
 ```
+
+## Working with sites
+
+```go
+
+// Read a previously saved session.
+err := session.Read(sessionLocation)
+if err != nil {
+    log.Fatal(err)
+}
+
+// Get a list of all sites the authenticated user has access to.
+SiteList := &elysium.SiteList{}
+err := session.Request("GET", SiteList)
+
+// Get a list of environments for a given site.
+site := SiteList.Sites[0]
+environmentList := elysium.NewEnvironmentList(site.ID)
+err = session.Request("GET", environmentList)
+
+// Get a list of all backups for the live.
+env := environmentList.Environments["live"]
+bl := elysium.NewBackupList(site.ID, env.Name)
+err = session.Request("GET", bl)
+
+// Get a database backup for the live site.
+dbBackup := &elysium.Backup{}
+if len(bl.Backups) > 0 {
+    for _, backup := range bl.Backups {
+        if backup.ArchiveType == "database" {
+            // Get a time-limited backup URL from Pantheon. This requires a POST of the backup type to their API.
+            err = session.Request("POST", &backup)
+            if err != nil {
+                log.Fatal(err)
+            }
+            break
+        }
+    }
+}
+
+// Print the download URL.
+fmt.Println(dbBackup.DownloadURL)
+
+```

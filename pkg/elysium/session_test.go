@@ -86,33 +86,3 @@ func TestAuth(t *testing.T) {
 	assert.Equal(session.Session, "some-testsession")
 	assert.Equal(session.UserID, "some-testuser")
 }
-
-/**
-func TestNeedsToBeBrokenOut(t *testing.T) {
-	assert := assert.New(t)
-	APIHost = "https://terminus.pantheon.io:443/api"
-	SiteList := &SiteList{}
-	err := session.Request("GET", SiteList)
-	assert.NoError(err)
-	assert.NotEmpty(SiteList.Sites)
-
-	site := SiteList.Sites[0]
-	environmentList := NewEnvironmentList(site.ID)
-	err = session.Request("GET", environmentList)
-	assert.NoError(err)
-	assert.NotEmpty(environmentList)
-
-	env := environmentList.Environments["live"]
-	bl := NewBackupList(site.ID, env.Name)
-	err = session.Request("GET", bl)
-	assert.NoError(err)
-
-	if len(bl.Backups) > 0 {
-		for i, backup := range bl.Backups {
-			err = session.Request("POST", &backup)
-			assert.NoError(err)
-			bl.Backups[i] = backup
-		}
-	}
-}
-**/
