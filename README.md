@@ -83,7 +83,8 @@ if len(bl.Backups) > 0 {
     for _, backup := range bl.Backups {
         if backup.ArchiveType == "database" {
             // Get a time-limited backup URL from Pantheon. This requires a POST of the backup type to their API.
-            err = session.Request("POST", &backup)
+            dbBackup = backup
+            err = session.Request("POST", &dbBackup)
             if err != nil {
                 log.Fatal(err)
             }
