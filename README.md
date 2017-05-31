@@ -31,41 +31,36 @@ The session object is responsible for managing API sessions and requesting new s
 ```go
 sessionLocation := "/home/user/.elysium/savedsession"
 
-// Create a new session for your API token.
 session := elysium.NewAuthSession(os.Getenv("TERMINUS_API_TOKEN"))
 
-// Make an authentication call.
-err := session.Auth()
-if err != nil {
-    log.Fatal(err)
-}
 
-// Write session info to disk.
+// Write a session to disk.
 err := session.Write(sessionLocation)
 if err != nil {
     log.Fatal(err)
 }
-
-// Read session info from disk.
-err := session.Read(sessionLocation)
-if err != nil {
-    log.Fatal(err)
-}
-```
-
-## Working with sites
-
-```go
 
 // Read a previously saved session.
 err := session.Read(sessionLocation)
 if err != nil {
     log.Fatal(err)
 }
+```
 
+
+### Using the API
+
+The following code shows how you would interact with the API to do the following tasks:
+
+1. Get a site list for the currently authed user.
+2. Get an environment list for the first site found
+3. Get a list of backups for the "live" environment.
+4. Get a S3 download URL for a database backup from the live environment.
+
+```go
 // Get a list of all sites the authenticated user has access to.
 SiteList := &elysium.SiteList{}
-err := session.Request("GET", SiteList)
+err = session.Request("GET", SiteList)
 
 // Get a list of environments for a given site.
 site := SiteList.Sites[0]
@@ -83,8 +78,8 @@ if len(bl.Backups) > 0 {
     for _, backup := range bl.Backups {
         if backup.ArchiveType == "database" {
             // Get a time-limited backup URL from Pantheon. This requires a POST of the backup type to their API.
-            dbBackup = backup
-            err = session.Request("POST", &dbBackup)
+            dbBackup = &backup
+            err = session.Request("POST", dbBackup)
             if err != nil {
                 log.Fatal(err)
             }
