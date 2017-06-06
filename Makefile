@@ -12,7 +12,7 @@ PKG := github.com/drud/go-pantheon
 # UPSTREAM_REPO ?= full/upstream-docker-repo
 
 # Top-level directories to build
-SRC_DIRS := pkg
+SRC_DIRS := cmd pkg
 
 # Version variables to replace in build, The variable VERSION is automatically pulled from git committish so it doesn't have to be added
 # These are replaced in the $(PKG).version package.
