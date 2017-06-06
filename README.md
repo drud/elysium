@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/drud/elysium)](https://goreportcard.com/report/github.com/drud/elysium) [![CircleCI Build](https://circleci.com/gh/drud/elysium.svg?&style=shield)](https://circleci.com/gh/drud/elysium/)
+
 # Elysium #
 
 Elysium is a GO client library for accessing the Patheon Systems [Terminus API](https://github.com/pantheon-systems/terminus).
