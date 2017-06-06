@@ -1,5 +1,8 @@
 package main
 
+// This simple demonstration app explores a users sites and environments, then gives
+// download links to any database or files downloads.
+
 import (
 	"github.com/drud/elysium/pkg/elysium"
 	"fmt"
@@ -16,7 +19,7 @@ func main() {
 
 	// Get a list of environments for a given site.
 	for _,site := range SiteList.Sites {
-		fmt.Println("Site:", site.Site.Name)
+		fmt.Printf("\nSite: %s\n", site.Site.Name)
 		environmentList := elysium.NewEnvironmentList(site.ID)
 		err = session.Request("GET", environmentList)
 
@@ -27,19 +30,17 @@ func main() {
 			bl := elysium.NewBackupList(site.ID, env.Name)
 			err = session.Request("GET", bl)
 
-			// Get a database backup for the site.
-			dbBackup := &elysium.Backup{}
+			// Traverse backups for the site and provide database/files backups.
 			if len(bl.Backups) > 0 {
 				for _, backup := range bl.Backups {
-					if backup.ArchiveType == "database" {
+					if backup.ArchiveType == "database" || backup.ArchiveType == "files" {
 						// Get a time-limited backup URL from Pantheon. This requires a POST of the backup type to their API.
-						dbBackup = &backup
-						err = session.Request("POST", dbBackup)
+						err = session.Request("POST", &backup)
 						if err != nil {
 							log.Fatal(err)
 						}
 						// Print the download URL.
-						fmt.Println("\t", dbBackup.DownloadURL)
+						fmt.Printf("\t%s %s %s backup: %s\n", site.Site.Name, envType, backup.ArchiveType, backup.DownloadURL)
 					}
 				}
 			}
