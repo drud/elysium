@@ -18,7 +18,7 @@ func TestSiteList(t *testing.T) {
 		assert.Contains(r.Header.Get("Authorization"), session.Session)
 
 		// Send JSON response back.
-		contents, err := ioutil.ReadFile("test/sites.json")
+		contents, err := ioutil.ReadFile("testdata/sites.json")
 		assert.NoError(err)
 		w.Write(contents)
 	})

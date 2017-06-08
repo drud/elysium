@@ -33,7 +33,7 @@ func TestEnvironmentList(t *testing.T) {
 		assert.Contains(r.Header.Get("Authorization"), session.Session)
 
 		// Send JSON response back.
-		contents, err := ioutil.ReadFile("test/environments.json")
+		contents, err := ioutil.ReadFile("testdata/environments.json")
 		assert.NoError(err)
 		w.Write(contents)
 	})
