@@ -52,7 +52,7 @@ func TestBackupList(t *testing.T) {
 		assert.Contains(r.Header.Get("Authorization"), session.Session)
 
 		// Send JSON response back.
-		contents, err := ioutil.ReadFile("test/backups.json")
+		contents, err := ioutil.ReadFile("testdata/backups.json")
 		assert.NoError(err)
 		w.Write(contents)
 	})
