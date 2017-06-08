@@ -1,4 +1,4 @@
-package elysium
+package pantheon
 
 import (
 	"encoding/json"
