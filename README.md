@@ -4,6 +4,8 @@
 
 go-pantheon is a GO client library for accessing the Patheon Systems [Terminus API](https://github.com/pantheon-systems/terminus).
 
+**This is not an official [Pantheon Systems](https://pantheon.io/) project.**
+
 
 ## Usage ##
 
