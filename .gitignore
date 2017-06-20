@@ -11,3 +11,4 @@
 /.dockerfile
 /VERSION.txt
 /.docker_image
+/.gotmp/
