@@ -272,7 +272,7 @@
       "created": 1430814231,
       "instrument": "8a8f2216-5d97-4901-9879-298ba9e7bf5e",
       "holder_type": "organization",
-      "php_version": 55,
+      "php_version": "55",
       "allow_cacheserver": true,
       "organization": "aaaa-bbbb-cccc-dddd",
       "last_code_push": {
