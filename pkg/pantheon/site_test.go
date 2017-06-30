@@ -23,8 +23,8 @@ func TestSiteList(t *testing.T) {
 		w.Write(contents)
 	})
 
-	session.Request("GET", sl)
-
+	err := session.Request("GET", sl)
+	assert.NoError(err)
 	// Ensure we got a valid response and were able to unmarshal it as expected.
 	assert.Equal(len(sl.Sites), 2)
 	assert.Equal(sl.Sites[0].Site.Framework, "wordpress")
