@@ -17,6 +17,6 @@ func TestInt64Parsing(t *testing.T) {
 	assert.NoError(err)
 
 	for i, v := range results {
-		assert.Equal(int64(v), results[i])
+		assert.Equal(v, int64(nums[i]))
 	}
 }
