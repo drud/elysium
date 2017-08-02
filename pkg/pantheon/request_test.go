@@ -1,14 +1,16 @@
 package pantheon
 
 import (
-	"fmt"
 	"bytes"
-	"io/ioutil"
-	"testing"
-	"net/http"
+	"fmt"
 	"github.com/stretchr/testify/assert"
+	"io/ioutil"
+	"net/http"
+	"testing"
 )
 
+// Test request header for default headers and a custom header, we set.
+// Test for success when sending an HTTP request body.
 func TestRequestHttpRequest(t *testing.T) {
 	assert := assert.New(t)
 	expected := "Bar"
