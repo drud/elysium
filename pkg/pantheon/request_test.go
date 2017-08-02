@@ -3,6 +3,7 @@ package pantheon
 import (
 	"fmt"
 	"bytes"
+	"io/ioutil"
 	"testing"
 	"net/http"
 	"github.com/stretchr/testify/assert"
@@ -19,13 +20,20 @@ func TestRequestHttpRequest(t *testing.T) {
 		assert.Equal("Terminus/1.3.1-dev (php_version=7.1.5&script=bin/terminus)", r.Header.Get("User-Agent"))
 		// Check the request for custom headers.
 		assert.Equal(expected, r.Header.Get("Foo"))
+		body, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			assert.Error(err)
+		}
 
-		// Write a test response body.
-		fmt.Fprint(w, expected)
+		// Check that the request body is carrying our value.
+		actual := string(body)
+		assert.Equal("Bar", actual)
+		// Write a response body with the value extracted from the request body.
+		fmt.Fprint(w, actual)
 	})
 
 	// Construct a new request with custom header.
-	resp, err := httpRequest("GET", "/foo/bar", nil, map[string]string{"Foo": expected})
+	resp, err := httpRequest("GET", "/foo/bar", []byte("Bar"), map[string]string{"Foo": expected})
 	if err != nil {
 		assert.Error(err)
 	}
