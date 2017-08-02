@@ -9,19 +9,21 @@ import (
 	"testing"
 )
 
+const requestPath = "/foo/bar"
+
 // Test request header for default headers and a custom header, we set.
 // Test for success when sending an HTTP request body.
-func TestRequestHttpRequest(t *testing.T) {
+func TestHttpRequest(t *testing.T) {
 	assert := assert.New(t)
-	expected := "Bar"
+	expectedHeaderValue := "Bar"
 
 	// Define a route on the test server.
-	mux.HandleFunc("/foo/bar", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc(requestPath, func(w http.ResponseWriter, r *http.Request) {
 		// Check the request for default headers.
-		assert.Equal("application/json", r.Header.Get("Content-Type"))
-		assert.Equal("Terminus/1.3.1-dev (php_version=7.1.5&script=bin/terminus)", r.Header.Get("User-Agent"))
+		assert.Equal(contentType, r.Header.Get("Content-Type"))
+		assert.Equal(userAgent, r.Header.Get("User-Agent"))
 		// Check the request for custom headers.
-		assert.Equal(expected, r.Header.Get("Foo"))
+		assert.Equal(expectedHeaderValue, r.Header.Get("Foo"))
 		body, err := ioutil.ReadAll(r.Body)
 		if err != nil {
 			assert.Error(err)
@@ -35,7 +37,7 @@ func TestRequestHttpRequest(t *testing.T) {
 	})
 
 	// Construct a new request with custom header.
-	resp, err := httpRequest("GET", "/foo/bar", []byte("Bar"), map[string]string{"Foo": expected})
+	resp, err := httpRequest("GET", requestPath, []byte("Bar"), map[string]string{"Foo": expectedHeaderValue})
 	if err != nil {
 		assert.Error(err)
 	}
@@ -46,5 +48,5 @@ func TestRequestHttpRequest(t *testing.T) {
 	raw := bytes.NewBuffer(resp)
 	actual = raw.String()
 	// Check for equality between the response body and expected value.
-	assert.Equal(expected, actual)
+	assert.Equal(expectedHeaderValue, actual)
 }
