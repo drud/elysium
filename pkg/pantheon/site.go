@@ -31,21 +31,21 @@ type Site struct {
 					Date string `json:"date"`
 					Site string `json:"site"`
 				} `json:"dashboard_visits"`
-				Experiments                 struct{}    `json:"experiments"`
-				Firstname                   string      `json:"firstname"`
-				FullName                    string      `json:"full_name"`
-				GuiltyOfAbuse               interface{} `json:"guilty_of_abuse"`
-				InitialIdentityName         interface{} `json:"initial_identity_name"`
-				InitialIdentityStrategy     interface{} `json:"initial_identity_strategy"`
-				LastOrgSpinup               string      `json:"last-org-spinup"`
-				Lastname                    string      `json:"lastname"`
-				MinimizeJitDocs             bool        `json:"minimize_jit_docs"`
-				Modified                    jsonInt64   `json:"modified"`
-				Organization                string      `json:"organization"`
-				Seens                       struct {
+				Experiments             struct{}    `json:"experiments"`
+				Firstname               string      `json:"firstname"`
+				FullName                string      `json:"full_name"`
+				GuiltyOfAbuse           interface{} `json:"guilty_of_abuse"`
+				InitialIdentityName     interface{} `json:"initial_identity_name"`
+				InitialIdentityStrategy interface{} `json:"initial_identity_strategy"`
+				LastOrgSpinup           string      `json:"last-org-spinup"`
+				Lastname                string      `json:"lastname"`
+				MinimizeJitDocs         bool        `json:"minimize_jit_docs"`
+				Modified                jsonInt64   `json:"modified"`
+				Organization            string      `json:"organization"`
+				Seens                   struct {
 					NewSiteSupportInterface bool `json:"new-site-support-interface"`
 				} `json:"seens"`
-				WebServicesBusiness         bool      `json:"web_services_business"`
+				WebServicesBusiness bool `json:"web_services_business"`
 			} `json:"profile"`
 		} `json:"holder"`
 		HolderID     string `json:"holder_id"`
@@ -83,21 +83,21 @@ type Site struct {
 					Date string `json:"date"`
 					Site string `json:"site"`
 				} `json:"dashboard_visits"`
-				Experiments                 struct{}    `json:"experiments"`
-				Firstname                   string      `json:"firstname"`
-				FullName                    string      `json:"full_name"`
-				GuiltyOfAbuse               interface{} `json:"guilty_of_abuse"`
-				InitialIdentityName         interface{} `json:"initial_identity_name"`
-				InitialIdentityStrategy     interface{} `json:"initial_identity_strategy"`
-				LastOrgSpinup               string      `json:"last-org-spinup"`
-				Lastname                    string      `json:"lastname"`
-				MinimizeJitDocs             bool        `json:"minimize_jit_docs"`
-				Modified                    jsonInt64   `json:"modified"`
-				Organization                string      `json:"organization"`
-				Seens                       struct {
+				Experiments             struct{}    `json:"experiments"`
+				Firstname               string      `json:"firstname"`
+				FullName                string      `json:"full_name"`
+				GuiltyOfAbuse           interface{} `json:"guilty_of_abuse"`
+				InitialIdentityName     interface{} `json:"initial_identity_name"`
+				InitialIdentityStrategy interface{} `json:"initial_identity_strategy"`
+				LastOrgSpinup           string      `json:"last-org-spinup"`
+				Lastname                string      `json:"lastname"`
+				MinimizeJitDocs         bool        `json:"minimize_jit_docs"`
+				Modified                jsonInt64   `json:"modified"`
+				Organization            string      `json:"organization"`
+				Seens                   struct {
 					NewSiteSupportInterface bool `json:"new-site-support-interface"`
 				} `json:"seens"`
-				WebServicesBusiness         bool      `json:"web_services_business"`
+				WebServicesBusiness bool `json:"web_services_business"`
 			} `json:"profile"`
 		} `json:"user_in_charge"`
 		UserInChargeID string `json:"user_in_charge_id"`
