@@ -34,3 +34,22 @@ func TestSiteList(t *testing.T) {
 	assert.Equal(sl.Sites[0].Site.Name, "sitename1")
 	assert.Equal(sl.Sites[1].Site.Name, "sitename2")
 }
+
+// TestSite ensures Site can decode site data from the Pantheon API.
+func TestSite(t *testing.T) {
+	assert := assert.New(t)
+	sl := NewSiteList()
+	mux.HandleFunc(sl.Path("GET", *session), func(w http.ResponseWriter, r *http.Request) {
+		// Ensure a HTTP GET request was made with the proper authorization headers.
+		testMethod(t, r, "GET")
+		assert.Contains(r.Header.Get("Authorization"), session.Session)
+
+		// Send JSON response back.
+		contents, err := ioutil.ReadFile("testdata/chaos_site.json")
+		assert.NoError(err)
+		w.Write(contents)
+	})
+
+	err := session.Request("GET", sl)
+	assert.NoError(err)
+}

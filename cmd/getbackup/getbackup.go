@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/drud/go-pantheon/pkg/pantheon"
+	"log"
 )
 
 func main() {
@@ -37,8 +38,7 @@ func main() {
 	SiteList := &pantheon.SiteList{}
 	err := session.Request("GET", SiteList)
 	if err != nil {
-		fmt.Print("Could not complete GET request to retrieve site list.")
-		os.Exit(1)
+		log.Fatalf("err: %s\nCould not complete GET request to retrieve site list.", err.Error())
 	}
 	site, err := getSite(siteName, SiteList)
 	if err != nil {
@@ -50,8 +50,7 @@ func main() {
 	environmentList := pantheon.NewEnvironmentList(site.ID)
 	err = session.Request("GET", environmentList)
 	if err != nil {
-		fmt.Print("Could not complete GET request to retrieve environment list.")
-		os.Exit(1)
+		log.Fatalf("err: %s\nCould not complete GET request to retrieve enivronment list.", err.Error())
 	}
 	env, ok := environmentList.Environments[envName]
 	if !ok {
@@ -63,8 +62,7 @@ func main() {
 	bl := pantheon.NewBackupList(site.ID, env.Name)
 	err = session.Request("GET", bl)
 	if err != nil {
-		fmt.Print("Could not complete GET request to retrieve backup list.")
-		os.Exit(1)
+		log.Fatalf("err: %s\nCould not complete GET request to retrieve backup list.", err.Error())
 	}
 	backup, err := getBackup(backupType, bl, session)
 	if err != nil {

@@ -27,11 +27,6 @@ type Site struct {
 			Profile struct {
 				ActivityLevel   string `json:"activity_level"`
 				Code            string `json:"code"`
-				DashboardVisits []struct {
-					Date string `json:"date"`
-					Site string `json:"site"`
-				} `json:"dashboard_visits"`
-				Experiments             struct{}    `json:"experiments"`
 				Firstname               string      `json:"firstname"`
 				FullName                string      `json:"full_name"`
 				GuiltyOfAbuse           interface{} `json:"guilty_of_abuse"`
@@ -39,7 +34,6 @@ type Site struct {
 				InitialIdentityStrategy interface{} `json:"initial_identity_strategy"`
 				LastOrgSpinup           string      `json:"last-org-spinup"`
 				Lastname                string      `json:"lastname"`
-				MinimizeJitDocs         bool        `json:"minimize_jit_docs"`
 				Modified                jsonInt64   `json:"modified"`
 				Organization            string      `json:"organization"`
 				Seens                   struct {
@@ -79,11 +73,6 @@ type Site struct {
 			Profile struct {
 				ActivityLevel   string `json:"activity_level"`
 				Code            string `json:"code"`
-				DashboardVisits []struct {
-					Date string `json:"date"`
-					Site string `json:"site"`
-				} `json:"dashboard_visits"`
-				Experiments             struct{}    `json:"experiments"`
 				Firstname               string      `json:"firstname"`
 				FullName                string      `json:"full_name"`
 				GuiltyOfAbuse           interface{} `json:"guilty_of_abuse"`
@@ -91,7 +80,6 @@ type Site struct {
 				InitialIdentityStrategy interface{} `json:"initial_identity_strategy"`
 				LastOrgSpinup           string      `json:"last-org-spinup"`
 				Lastname                string      `json:"lastname"`
-				MinimizeJitDocs         bool        `json:"minimize_jit_docs"`
 				Modified                jsonInt64   `json:"modified"`
 				Organization            string      `json:"organization"`
 				Seens                   struct {
