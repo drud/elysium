@@ -25,8 +25,8 @@ type Site struct {
 			Email   string `json:"email"`
 			ID      string `json:"id"`
 			Profile struct {
-				ActivityLevel   string `json:"activity_level"`
-				Code            string `json:"code"`
+				ActivityLevel           string      `json:"activity_level"`
+				Code                    string      `json:"code"`
 				Firstname               string      `json:"firstname"`
 				FullName                string      `json:"full_name"`
 				GuiltyOfAbuse           interface{} `json:"guilty_of_abuse"`
@@ -71,8 +71,8 @@ type Site struct {
 			Email   string `json:"email"`
 			ID      string `json:"id"`
 			Profile struct {
-				ActivityLevel   string `json:"activity_level"`
-				Code            string `json:"code"`
+				ActivityLevel           string      `json:"activity_level"`
+				Code                    string      `json:"code"`
 				Firstname               string      `json:"firstname"`
 				FullName                string      `json:"full_name"`
 				GuiltyOfAbuse           interface{} `json:"guilty_of_abuse"`
