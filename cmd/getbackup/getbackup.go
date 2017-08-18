@@ -36,6 +36,10 @@ func main() {
 	// Get a list of all sites the current user has access to. Ensure we can find the site which was used in the CLI arguments in that list.
 	SiteList := &pantheon.SiteList{}
 	err := session.Request("GET", SiteList)
+	if err != nil {
+		fmt.Print("Could not complete GET request to retrieve site list.")
+		os.Exit(1)
+	}
 	site, err := getSite(siteName, SiteList)
 	if err != nil {
 		fmt.Printf("Could not find site named %s\r\n", siteName)
@@ -45,6 +49,10 @@ func main() {
 	// Get a list of all active environments for the current site.
 	environmentList := pantheon.NewEnvironmentList(site.ID)
 	err = session.Request("GET", environmentList)
+	if err != nil {
+		fmt.Print("Could not complete GET request to retrieve environment list.")
+		os.Exit(1)
+	}
 	env, ok := environmentList.Environments[envName]
 	if !ok {
 		fmt.Printf("There was no environment named %s for site %s\r\n", envName, siteName)
@@ -54,6 +62,10 @@ func main() {
 	// Find either a files or database backup, depending on what was asked for.
 	bl := pantheon.NewBackupList(site.ID, env.Name)
 	err = session.Request("GET", bl)
+	if err != nil {
+		fmt.Print("Could not complete GET request to retrieve backup list.")
+		os.Exit(1)
+	}
 	backup, err := getBackup(backupType, bl, session)
 	if err != nil {
 		fmt.Printf("Could not get backup of type %s: %v", backupType, err)
