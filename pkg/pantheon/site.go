@@ -34,27 +34,17 @@ type Site struct {
 				Experiments                 struct{}    `json:"experiments"`
 				Firstname                   string      `json:"firstname"`
 				FullName                    string      `json:"full_name"`
-				GoogleAdwordsPushedCodeSent jsonInt64   `json:"google_adwords_pushed_code_sent"`
 				GuiltyOfAbuse               interface{} `json:"guilty_of_abuse"`
 				InitialIdentityName         interface{} `json:"initial_identity_name"`
 				InitialIdentityStrategy     interface{} `json:"initial_identity_strategy"`
-				InvitesSent                 jsonInt64   `json:"invites_sent"`
-				InvitesToSite               jsonInt64   `json:"invites_to_site"`
-				InvitesToUser               jsonInt64   `json:"invites_to_user"`
 				LastOrgSpinup               string      `json:"last-org-spinup"`
 				Lastname                    string      `json:"lastname"`
-				Maxdevsites                 jsonInt64   `json:"maxdevsites"`
 				MinimizeJitDocs             bool        `json:"minimize_jit_docs"`
 				Modified                    jsonInt64   `json:"modified"`
 				Organization                string      `json:"organization"`
 				Seens                       struct {
 					NewSiteSupportInterface bool `json:"new-site-support-interface"`
 				} `json:"seens"`
-				TrackingFirstCodePush       jsonInt64 `json:"tracking_first_code_push"`
-				TrackingFirstSiteCreate     jsonInt64 `json:"tracking_first_site_create"`
-				TrackingFirstTeamInvite     jsonInt64 `json:"tracking_first_team_invite"`
-				TrackingFirstWorkflowInLive jsonInt64 `json:"tracking_first_workflow_in_live"`
-				Verify                      jsonInt64 `json:"verify"`
 				WebServicesBusiness         bool      `json:"web_services_business"`
 			} `json:"profile"`
 		} `json:"holder"`
@@ -65,7 +55,6 @@ type Site struct {
 			Timestamp string      `json:"timestamp"`
 			UserUUID  interface{} `json:"user_uuid"`
 		} `json:"last_code_push"`
-		LastFrozenAt  jsonInt64 `json:"last_frozen_at"`
 		Name          string    `json:"name"`
 		Owner         string    `json:"owner"`
 		PhpVersion    jsonInt64 `json:"php_version"`
@@ -97,27 +86,17 @@ type Site struct {
 				Experiments                 struct{}    `json:"experiments"`
 				Firstname                   string      `json:"firstname"`
 				FullName                    string      `json:"full_name"`
-				GoogleAdwordsPushedCodeSent jsonInt64   `json:"google_adwords_pushed_code_sent"`
 				GuiltyOfAbuse               interface{} `json:"guilty_of_abuse"`
 				InitialIdentityName         interface{} `json:"initial_identity_name"`
 				InitialIdentityStrategy     interface{} `json:"initial_identity_strategy"`
-				InvitesSent                 jsonInt64   `json:"invites_sent"`
-				InvitesToSite               jsonInt64   `json:"invites_to_site"`
-				InvitesToUser               jsonInt64   `json:"invites_to_user"`
 				LastOrgSpinup               string      `json:"last-org-spinup"`
 				Lastname                    string      `json:"lastname"`
-				Maxdevsites                 jsonInt64   `json:"maxdevsites"`
 				MinimizeJitDocs             bool        `json:"minimize_jit_docs"`
 				Modified                    jsonInt64   `json:"modified"`
 				Organization                string      `json:"organization"`
 				Seens                       struct {
 					NewSiteSupportInterface bool `json:"new-site-support-interface"`
 				} `json:"seens"`
-				TrackingFirstCodePush       jsonInt64 `json:"tracking_first_code_push"`
-				TrackingFirstSiteCreate     jsonInt64 `json:"tracking_first_site_create"`
-				TrackingFirstTeamInvite     jsonInt64 `json:"tracking_first_team_invite"`
-				TrackingFirstWorkflowInLive jsonInt64 `json:"tracking_first_workflow_in_live"`
-				Verify                      jsonInt64 `json:"verify"`
 				WebServicesBusiness         bool      `json:"web_services_business"`
 			} `json:"profile"`
 		} `json:"user_in_charge"`
