@@ -39,17 +39,11 @@ func TestSiteList(t *testing.T) {
 func TestSite(t *testing.T) {
 	assert := assert.New(t)
 	sl := NewSiteList()
-	mux.HandleFunc(sl.Path("GET", *session), func(w http.ResponseWriter, r *http.Request) {
-		// Ensure a HTTP GET request was made with the proper authorization headers.
-		testMethod(t, r, "GET")
-		assert.Contains(r.Header.Get("Authorization"), session.Session)
 
-		// Send JSON response back.
-		contents, err := ioutil.ReadFile("testdata/chaos_site.json")
-		assert.NoError(err)
-		w.Write(contents)
-	})
+	// Send JSON response back.
+	contents, err := ioutil.ReadFile("testdata/chaos_site.json")
+	assert.NoError(err)
 
-	err := session.Request("GET", sl)
+	err = sl.Unmarshal(contents)
 	assert.NoError(err)
 }
