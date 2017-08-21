@@ -38,7 +38,7 @@ func main() {
 	SiteList := &pantheon.SiteList{}
 	err := session.Request("GET", SiteList)
 	if err != nil {
-		log.Fatalf("err: %s\nCould not complete GET request to retrieve site list.", err.Error())
+		log.Fatalf("err: %v\nCould not complete GET request to retrieve site list.", err)
 	}
 	site, err := getSite(siteName, SiteList)
 	if err != nil {
@@ -50,7 +50,7 @@ func main() {
 	environmentList := pantheon.NewEnvironmentList(site.ID)
 	err = session.Request("GET", environmentList)
 	if err != nil {
-		log.Fatalf("err: %s\nCould not complete GET request to retrieve enivronment list.", err.Error())
+		log.Fatalf("err: %v\nCould not complete GET request to retrieve enivronment list.", err)
 	}
 	env, ok := environmentList.Environments[envName]
 	if !ok {
@@ -62,7 +62,7 @@ func main() {
 	bl := pantheon.NewBackupList(site.ID, env.Name)
 	err = session.Request("GET", bl)
 	if err != nil {
-		log.Fatalf("err: %s\nCould not complete GET request to retrieve backup list.", err.Error())
+		log.Fatalf("err: %v\nCould not complete GET request to retrieve backup list.", err)
 	}
 	backup, err := getBackup(backupType, bl, session)
 	if err != nil {

@@ -35,8 +35,8 @@ func TestSiteList(t *testing.T) {
 	assert.Equal(sl.Sites[1].Site.Name, "sitename2")
 }
 
-// TestSite ensures Site can decode site data from the Pantheon API.
-func TestSite(t *testing.T) {
+// TestSiteList_Unmarshal ensures Site can decode site data from the Pantheon API.
+func TestSiteList_Unmarshal(t *testing.T) {
 	assert := assert.New(t)
 	sl := NewSiteList()
 
@@ -46,4 +46,7 @@ func TestSite(t *testing.T) {
 
 	err = sl.Unmarshal(contents)
 	assert.NoError(err)
+	// Ensure we got a valid response and were able to unmarshal it as expected.
+	assert.Equal("1d", sl.Sites[0].ID)
+	assert.Equal("Chaos Mock Pantheon API Response", sl.Sites[0].Site.Name)
 }
