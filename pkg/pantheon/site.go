@@ -14,38 +14,12 @@ type Site struct {
 	Key         string `json:"key"`
 	Role        string `json:"role"`
 	Site        struct {
-		Attributes struct {
-			Label string `json:"label"`
-		} `json:"attributes"`
 		Created         jsonInt64 `json:"created"`
 		CreatedByUserID string    `json:"created_by_user_id"`
 		Framework       string    `json:"framework"`
 		Frozen          bool      `json:"frozen"`
-		Holder          struct {
-			Email   string `json:"email"`
-			ID      string `json:"id"`
-			Profile struct {
-				ActivityLevel           string      `json:"activity_level"`
-				Code                    string      `json:"code"`
-				Firstname               string      `json:"firstname"`
-				FullName                string      `json:"full_name"`
-				GuiltyOfAbuse           interface{} `json:"guilty_of_abuse"`
-				InitialIdentityName     interface{} `json:"initial_identity_name"`
-				InitialIdentityStrategy interface{} `json:"initial_identity_strategy"`
-				LastOrgSpinup           string      `json:"last-org-spinup"`
-				Lastname                string      `json:"lastname"`
-				Modified                jsonInt64   `json:"modified"`
-				Organization            string      `json:"organization"`
-				Seens                   struct {
-					NewSiteSupportInterface bool `json:"new-site-support-interface"`
-				} `json:"seens"`
-				WebServicesBusiness bool `json:"web_services_business"`
-			} `json:"profile"`
-		} `json:"holder"`
-		HolderID     string `json:"holder_id"`
-		HolderType   string `json:"holder_type"`
-		ID           string `json:"id"`
-		LastCodePush struct {
+		ID              string    `json:"id"`
+		LastCodePush    struct {
 			Timestamp string      `json:"timestamp"`
 			UserUUID  interface{} `json:"user_uuid"`
 		} `json:"last_code_push"`
@@ -64,31 +38,6 @@ type Site struct {
 			ProductID string `json:"product_id"`
 			URL       string `json:"url"`
 		} `json:"upstream"`
-		UpstreamUpdatesByEnvironment struct {
-			HasCode bool `json:"has_code"`
-		} `json:"upstream_updates_by_environment"`
-		UserInCharge struct {
-			Email   string `json:"email"`
-			ID      string `json:"id"`
-			Profile struct {
-				ActivityLevel           string      `json:"activity_level"`
-				Code                    string      `json:"code"`
-				Firstname               string      `json:"firstname"`
-				FullName                string      `json:"full_name"`
-				GuiltyOfAbuse           interface{} `json:"guilty_of_abuse"`
-				InitialIdentityName     interface{} `json:"initial_identity_name"`
-				InitialIdentityStrategy interface{} `json:"initial_identity_strategy"`
-				LastOrgSpinup           string      `json:"last-org-spinup"`
-				Lastname                string      `json:"lastname"`
-				Modified                jsonInt64   `json:"modified"`
-				Organization            string      `json:"organization"`
-				Seens                   struct {
-					NewSiteSupportInterface bool `json:"new-site-support-interface"`
-				} `json:"seens"`
-				WebServicesBusiness bool `json:"web_services_business"`
-			} `json:"profile"`
-		} `json:"user_in_charge"`
-		UserInChargeID string `json:"user_in_charge_id"`
 	} `json:"site"`
 	SiteID string `json:"site_id"`
 	UserID string `json:"user_id"`
