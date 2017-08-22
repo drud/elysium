@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/drud/go-pantheon/pkg/pantheon"
+	"log"
 )
 
 func main() {
@@ -36,6 +37,9 @@ func main() {
 	// Get a list of all sites the current user has access to. Ensure we can find the site which was used in the CLI arguments in that list.
 	SiteList := &pantheon.SiteList{}
 	err := session.Request("GET", SiteList)
+	if err != nil {
+		log.Fatalf("err: %v\nCould not complete GET request to retrieve site list.", err)
+	}
 	site, err := getSite(siteName, SiteList)
 	if err != nil {
 		fmt.Printf("Could not find site named %s\r\n", siteName)
@@ -45,6 +49,9 @@ func main() {
 	// Get a list of all active environments for the current site.
 	environmentList := pantheon.NewEnvironmentList(site.ID)
 	err = session.Request("GET", environmentList)
+	if err != nil {
+		log.Fatalf("err: %v\nCould not complete GET request to retrieve enivronment list.", err)
+	}
 	env, ok := environmentList.Environments[envName]
 	if !ok {
 		fmt.Printf("There was no environment named %s for site %s\r\n", envName, siteName)
@@ -54,6 +61,9 @@ func main() {
 	// Find either a files or database backup, depending on what was asked for.
 	bl := pantheon.NewBackupList(site.ID, env.Name)
 	err = session.Request("GET", bl)
+	if err != nil {
+		log.Fatalf("err: %v\nCould not complete GET request to retrieve backup list.", err)
+	}
 	backup, err := getBackup(backupType, bl, session)
 	if err != nil {
 		fmt.Printf("Could not get backup of type %s: %v", backupType, err)
